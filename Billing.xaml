@@ -1,0 +1,27 @@
+﻿<Window x:Name="Billing_Window" x:Class="WHD_Assistant_WPF.Billing"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WHD_Assistant_WPF"
+        mc:Ignorable="d"
+        Title="Billing" Height="460.227" Width="810.227" ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <Storyboard x:Key="Opening">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Billing_Window">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource Opening}" />
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <Rectangle x:Name="rctTop" Fill="DimGray" Height="29" VerticalAlignment="Top" MouseLeftButtonDown="rctTop_MouseLeftButtonDown" Visibility="Collapsed" />
+        <DataGrid x:Name="dgBilling" />
+        <Button x:Name="btnClose" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Width="24" Background="IndianRed" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="24" FontSize="12" Click="btnClose_Click" Margin="0,2,0,0" Visibility="Collapsed" />
+    </Grid>
+</Window>

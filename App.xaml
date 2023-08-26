@@ -1,0 +1,30 @@
+﻿<Application x:Class="WHD_Assistant_WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Login.xaml">
+    <Application.Resources>
+
+        <!-- .... other resources .... -->
+
+        <!--A Style that affects all TextBlocks-->
+        <!--Style TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="FontFamily" Value="Comic Sans MS" />
+                <Setter Property="FontSize" Value="14" />
+            </Style-->
+
+        <!--A Style that extends the previous TextBlock Style with an x:Key of TitleText-->
+
+        <!--Style BasedOn="{StaticResource {x:Type Button}}"
+           TargetType="TextBlock"
+           x:Key="RoundedButton">
+
+                <Setter Property="">
+                    <Setter.Value>
+                    <Border CornerRadius="2">
+                    </Border>
+                    </Setter.Value>
+                </Setter>
+            </Style-->
+    </Application.Resources>
+</Application>

@@ -1,0 +1,54 @@
+﻿<Window x:Name="WHDBrowser" x:Class="WHD_Assistant_WPF.BlankWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WHD_Assistant_WPF"
+        mc:Ignorable="d"
+        Title="WHD Browser" Height="450" Width="800" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Storyboard x:Key="Opening">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="WHDBrowser">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource Opening}" />
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="389*" />
+        </Grid.RowDefinitions>
+
+        <Rectangle x:Name="rctTop" Fill="DimGray" Height="30" Grid.Row="0" VerticalAlignment="Top" MouseLeftButtonDown="rctTop_MouseLeftButtonDown" Visibility="Visible" />
+        <WebBrowser x:Name="wbLookup" Grid.Row="1" />
+        <Button x:Name="btnClose" Content="X" HorizontalAlignment="Right" Margin="0,2,1,0" VerticalAlignment="Top" Width="24" Background="IndianRed" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="24" FontSize="12" Click="btnClose_Click" Visibility="Collapsed" />
+        <Button x:Name="btnMaximize" Content="▢" HorizontalAlignment="Right" Margin="0,2,25,0" VerticalAlignment="Top" Width="25" Background="#FF5CCDC5" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="24" FontSize="12" Click="btnMaximize_Click" Visibility="Collapsed" />
+        <Image x:Name="imgBack" HorizontalAlignment="Left" Height="22" Margin="0,4,0,0" VerticalAlignment="Top" Width="22" RenderTransformOrigin="0.5,0.5" Source="Back Icon.png" Cursor="Hand" ToolTip="Back" MouseLeftButtonDown="imgBack_MouseLeftButtonDown">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform Angle="-0.349" />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image  x:Name="imgForward" HorizontalAlignment="Left" Height="22" Margin="32,4,0,0" VerticalAlignment="Top" Width="22" RenderTransformOrigin="0.5,0.5" Source="Forward Icon.png" Cursor="Hand" ToolTip="Forward" MouseLeftButtonDown="imgForward_MouseLeftButtonDown">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform Angle="-0.349" />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+    </Grid>
+</Window>

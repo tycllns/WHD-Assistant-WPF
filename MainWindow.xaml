@@ -1,0 +1,766 @@
+﻿<Window Name="Main" x:Class="WHD_Assistant_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+
+        Title="MainWindow" Height="768.969" Width="1456.9" MinWidth="1456.9" MinHeight="768.969" ResizeMode="CanResizeWithGrip" Loaded="Main_Loaded" Closed="Main_Closed">
+
+    <Window.Resources>
+
+        <Style x:Name="DatePick" TargetType="{x:Type DatePickerTextBox}">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <TextBox x:Name="PART_TextBox"
+     Text="{Binding Path=SelectedDate, StringFormat='yyyy-MM-dd',
+     RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Storyboard x:Key="Opening">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.MinWidth)" Storyboard.TargetName="Main">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="768.969" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1456.9" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.MinHeight)" Storyboard.TargetName="Main">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="768.969" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Main">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1430" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1456.9" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1457" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1456.9" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="Main">
+                <EasingDoubleKeyFrame KeyTime="0" Value="755" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="768.969" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="770" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="768.969" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Main">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="btnBillingOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stkBilling">
+                <EasingDoubleKeyFrame KeyTime="0" Value="5" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="25" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="75" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="115" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="130" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="140" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="BtnCollapse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stkBilling">
+                <EasingDoubleKeyFrame KeyTime="0" Value="140" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="115" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="30" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="5" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="LoadingScreen">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse">
+                <EasingThicknessKeyFrame KeyTime="0" Value="615,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.1" Value="662,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="789,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.6" Value="796,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.7" Value="796,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:2.3" Value="860,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse1">
+                <EasingThicknessKeyFrame KeyTime="0" Value="613.25,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.3" Value="665,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="757,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.6" Value="775,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="775,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.7" Value="778,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.8" Value="776,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.9" Value="775,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:2" Value="774.5,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:2.6" Value="859,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse2">
+                <EasingThicknessKeyFrame KeyTime="0" Value="595.25,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.359" Value="652,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.559" Value="720,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.659" Value="753,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="753,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.6" Value="757,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.7" Value="755,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.8" Value="754,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.9" Value="753.5,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:2.1" Value="753.5,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:2.8" Value="858,0,0,0.112">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse3">
+                <EasingThicknessKeyFrame KeyTime="0" Value="577.25,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.495" Value="634,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.6" Value="680,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.7" Value="731,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.9" Value="731,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.4" Value="731,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="735,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.6" Value="733,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.7" Value="732,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.8" Value="731.5,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:2.4" Value="731.5,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:3" Value="853,0,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="image">
+                <EasingThicknessKeyFrame KeyTime="0" Value="554.25,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="554.25,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.4" Value="709,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.9" Value="702,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:2.1" Value="701,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:2.2" Value="700,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:2.4" Value="699,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:3" Value="699,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:3.1" Value="690,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:3.2" Value="690,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:3.4" Value="695,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:3.7" Value="711,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:4.6" Value="854,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:4.8" Value="854,0,0,-0.221">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="image">
+                <EasingDoubleKeyFrame KeyTime="0" Value="45.605">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="45.605">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="581.715">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="465">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="438.938">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="430.565">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="425.884">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="425.884">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.1" Value="347.712">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="348.795">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:3.4" Value="364.74184210526312">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.6" Value="671.279">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="671.279">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="ThemeButtonOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="stkThemes">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="20" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="60" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="100" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="110" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="120" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="130" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="132" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="ThemeButtonClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="stkThemes">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="110" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="90" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="80" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="60" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="SignaturePanelOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stkpnlSignature">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="5" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="15" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="30" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="60" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="90" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="110" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="120" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="130" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="135" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="140" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="SignaturePanelClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stkpnlSignature">
+                <EasingDoubleKeyFrame KeyTime="0" Value="140" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="120" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="100" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="80" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="60" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="40" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="20" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="AcheivementPopup">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="grdAcheivements">
+                <SplineThicknessKeyFrame KeyTime="0" Value="2,43,12,-106" />
+                <EasingThicknessKeyFrame KeyTime="0:0:2" Value="2,43,12,-106">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <BounceEase EasingMode="EaseIn" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:3.4" Value="1.967,-82,12,-106">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <BounceEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:3.5" Value="1.967,-86,12,-106" />
+                <EasingThicknessKeyFrame KeyTime="0:0:4.7" Value="1.967,-86,12,-106" />
+                <EasingThicknessKeyFrame KeyTime="0:0:4.8" Value="1.967,-82,12,-106">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <BounceEase EasingMode="EaseIn" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:6" Value="1.967,49,12,-106">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <BounceEase EasingMode="EaseOut" />
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="grdAcheivements">
+                <EasingDoubleKeyFrame KeyTime="0" Value="36" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="40" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="grdAcheivements">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-2" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:6" Value="-1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="Opening2">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Main">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource Opening}" />
+            <BeginStoryboard Storyboard="{StaticResource Opening2}" />
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="btnBilling">
+            <BeginStoryboard Storyboard="{StaticResource btnBillingOpen}" />
+        </EventTrigger>
+
+        <EventTrigger RoutedEvent="Button.Click" SourceName="btnCollapse">
+            <BeginStoryboard Storyboard="{StaticResource BtnCollapse}" />
+        </EventTrigger>
+    </Window.Triggers>
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="10" />
+    </Window.Effect>
+
+    <Border BorderThickness="4" CornerRadius="5" BorderBrush="White">
+        <Grid x:Name="grdMain" Background="#FF3F3F3F" OpacityMask="#FFFBFBFB" Margin="-4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="161*" MinWidth="150" MaxWidth="300"></ColumnDefinition>
+                <ColumnDefinition Width="309*"></ColumnDefinition>
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="788*" />
+                <ColumnDefinition Width="161*" MinWidth="150" MaxWidth="300"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="31"></RowDefinition>
+                <RowDefinition Height="681*"></RowDefinition>
+                <RowDefinition Height="26*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid x:Name="grdAcheivements" Margin="-1,37,29,-100"  Grid.Row="2" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <Rectangle x:Name="rectAcheivementText" Fill="#FF68686D" Height="70" Margin="46,6,0,0" Stroke="#FFBABABA" VerticalAlignment="Top" Width="87" HorizontalAlignment="Left" />
+                <Ellipse x:Name="Acheivement_Icon" Fill="#FF68686D" HorizontalAlignment="Left" Height="79.25" VerticalAlignment="Top" Width="80" Stroke="#FFBABABA" />
+                <TextBlock x:Name="txtblkAcheivementtxt" Margin="82,10,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="63" Foreground="White" FontSize="10" HorizontalAlignment="Left" Width="48" />
+
+                <Ellipse x:Name="Acheivement_Icon_Copy" Fill="#FF4DC1CA" HorizontalAlignment="Left" Height="73.5" VerticalAlignment="Top" Width="74.25" Margin="3,3,0,0" />
+                <Image x:Name="imgAcheivement" HorizontalAlignment="Left" Height="44.25" Margin="19.75,17.25,0,0" VerticalAlignment="Top" Width="46.75" Source="Trophy.png" />
+            </Grid>
+
+            <Grid Name="grdLoader" Background="#FF3F3F3F" Margin="0,0,111,0" Panel.ZIndex="5" Grid.Column="2" Grid.ColumnSpan="3" VerticalAlignment="Center" Height="26" Grid.Row="2" HorizontalAlignment="Right" Width="862">
+                <Ellipse x:Name="ellipse" Fill="#FF95EFB7" HorizontalAlignment="Left" Height="18" Margin="631.25,0,0,0" VerticalAlignment="Bottom" Width="19" RenderTransformOrigin="0.455,-0.885" />
+                <Ellipse x:Name="ellipse2" Fill="#FFEFE995" HorizontalAlignment="Left" Height="18" Margin="595.25,0,0,0.112" VerticalAlignment="Bottom" Width="18" />
+                <Ellipse x:Name="ellipse3" Fill="#FFF39DD1" HorizontalAlignment="Left" Height="18" Margin="577.25,0,0,0" VerticalAlignment="Bottom" Width="18" />
+                <Image x:Name="image" HorizontalAlignment="Left" Height="22" Margin="554.25,0,0,-0.221" VerticalAlignment="Bottom" Width="23" Source="WHDA Icon.png" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="0.997" ScaleX="1.003" />
+                            <SkewTransform AngleY="0.371" />
+                            <RotateTransform Angle="45.605" />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+                <Ellipse x:Name="ellipse1" Fill="#FFEF9595" HorizontalAlignment="Left" Height="18" Margin="613.25,0,0,0.112" VerticalAlignment="Bottom" Width="18" />
+                <Rectangle x:Name="rectangle" Fill="#FF3F3F3F" HorizontalAlignment="Left" Height="28" Margin="451.058,-0.224,285.542,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+                    <Rectangle.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Rectangle.RenderTransform>
+                </Rectangle>
+                <Rectangle x:Name="rctLoaderHiderRight" Fill="#FF3F3F3F" HorizontalAlignment="Right" Height="28" Margin="0,-1,-13,0" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Width="57">
+                    <Rectangle.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="-1" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Rectangle.RenderTransform>
+                </Rectangle>
+                <Rectangle x:Name="rctLoaderHiderLeft" Fill="#FF3F3F3F" HorizontalAlignment="Right" Height="28.224" Margin="0,0,197.142,-0.336" VerticalAlignment="Bottom" Width="196" />
+                <TextBlock x:Name="txtblkLoading" HorizontalAlignment="Right" Margin="0,0,197.2,-0.112" TextWrapping="Wrap" Text="Loading" VerticalAlignment="Bottom" FrameworkElement.FlowDirection="RightToLeft" Foreground="White" />
+            </Grid>
+
+            <Rectangle x:Name="topbar" Width="Auto" Grid.ColumnSpan="5" MouseDown="topbar_MouseDown"  Fill="#FF696969" Height="30" VerticalAlignment="Top" Visibility="Collapsed">
+                <Rectangle.InputBindings>
+                    <MouseBinding Gesture=""  Command="{Binding FooCommand}" />
+                </Rectangle.InputBindings>
+            </Rectangle>
+
+            <WebBrowser Panel.ZIndex="1" x:Name="wbWHD" Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="1" Source="website" MinWidth="500" Margin="17,0" Navigated="wbWHD_Navigated" LoadCompleted="wbWHD_LoadCompleted" Navigating="wbWHD_Navigating" />
+            <ComboBox x:Name="cmbxTemplates"  Grid.Column="0" Margin="13,47,12,0" Grid.Row="1" VerticalAlignment="Top" Height="39" SelectionChanged="cmbxTemplates_SelectionChanged" ToolTip="Available Templates" MaxDropDownHeight="700">
+                <ListBoxItem />
+            </ComboBox>
+            <GridSplitter x:Name="grpspltL" Grid.Column="0" HorizontalAlignment="Right" Grid.Row="1" Width="5" Background="#FFCCCCCC" />
+            <GridSplitter x:Name="grdspltR" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="1" Width="5" Background="#FFCCCCCC" />
+
+            <Button  x:Name="btnMaximize" Content="▢" HorizontalAlignment="Right" Margin="0,3,26,0" VerticalAlignment="Top" Width="25" Background="#FF5CCDC5" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="24" FontSize="12" Click="btnMaximize_Click" Grid.Column="4" Visibility="Collapsed" />
+            <Button  x:Name="btnMinimize" Content="_" HorizontalAlignment="Right" Margin="0,3,51,0" VerticalAlignment="Top" Width="25" Background="#FF5CCD81" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="24" FontSize="12" Click="btnMinimize_Click" Grid.Column="4" Visibility="Collapsed" />
+            <Button  x:Name="btnClose_Copy" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Width="24" Background="IndianRed" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="24" FontSize="12" Click="btnClose_Click" Grid.Column="3" Margin="0,3,1,0" Visibility="Hidden" />
+            <Button  x:Name="btnMaximize_Copy" Content="▢" HorizontalAlignment="Right" Margin="0,3,25,0" VerticalAlignment="Top" Width="24" Background="#FF5CCDC5" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="24" FontSize="12" Click="btnMaximize_Click" Grid.Column="3" Visibility="Hidden" />
+            <Button  x:Name="btnMinimize_Copy" Content="_" HorizontalAlignment="Right" Margin="0,3,49,0" VerticalAlignment="Top" Width="24" Background="#FF5CCD81" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="24" FontSize="12" Click="btnMinimize_Click" Grid.Column="3" Visibility="Hidden" />
+            <Button  x:Name="btnNormal" Content="□" HorizontalAlignment="Right" Margin="0,3,26,0" VerticalAlignment="Top" Width="25" Background="#FF5CCDC5" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="24" FontSize="12" Click="btnNormal_Click" Grid.Column="4" Visibility="Hidden" />
+            <Button  x:Name="btnNormal_Copy" Content="□" HorizontalAlignment="Right" Margin="0,3,25,0" VerticalAlignment="Top" Width="25" Background="#FF5CCDC5" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="24" FontSize="12" Click="btnNormal_Click" Grid.Column="3" Visibility="Hidden" />
+            <Button  x:Name="btnClose" Content="X" HorizontalAlignment="Right" Margin="0,3,2,0" VerticalAlignment="Top" Width="24" Background="IndianRed" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="24" FontSize="12" Click="btnClose_Click" Grid.Column="4" Visibility="Collapsed" />
+            <Button x:Name="btnCloseLeftPanel" Grid.Column="0" Content="&lt;" HorizontalAlignment="Right" Margin="0,267,5,262" Grid.Row="1" VerticalAlignment="Center" Width="15" Background="IndianRed" BorderThickness="0" Height="152" Foreground="White" Click="btnCloseLeftPanel_Click" BorderBrush="{x:Null}" ToolTip="Close Left Panel" FontSize="20">
+            </Button>
+            <Button  x:Name="btnLeftOpen" Content="&gt;" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="17" Background="IndianRed" Foreground="White"  Click="btnLeftOpen_Click" IsEnabled="False" ToolTip="Open Left Panel" BorderBrush="{x:Null}" FontSize="20" />
+            <Button  x:Name="btnRightOpen" Content="&lt;" Grid.Column="3" HorizontalAlignment="Right" Grid.Row="1" Width="17" Background="LightGray"  Foreground="White" IsEnabled="False" Click="btnRightOpen_Click" ToolTip="Open Right Panel" BorderBrush="{x:Null}" FontSize="20" />
+            <Button  x:Name="btnCloseRight" BorderThickness="0" Content="&gt;" HorizontalAlignment="Left" Margin="5,267,0,262" Grid.Row="1" VerticalAlignment="Center" Width="15" Background="IndianRed"  Height="152" Foreground="White" Grid.Column="4" Click="btnCloseRight_Click" ToolTip="Close Right Panel" BorderBrush="{x:Null}" FontSize="20" />
+            <Button  x:Name="btnBilling" Content="Billing" VerticalAlignment="Bottom" Background="IndianRed" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="35" FontSize="16" Margin="7,0,2,5" Grid.Column="4" Grid.Row="1" Click="btnBilling_Click" ToolTip="Check Billing" />
+            <Button  x:Name="btnBilling2" Content="Billing" VerticalAlignment="Bottom" Background="IndianRed" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="35" FontSize="12" Margin="18,0,16,10" Grid.Column="4" Grid.Row="1" Click="btnBilling2_Click" Visibility="Hidden" />
+            <Button  x:Name="btnClientLookup" Content="Client" HorizontalAlignment="Right" Margin="0,3,10,0" VerticalAlignment="Top" Width="76" Background="IndianRed" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="27" FontSize="16" Grid.Column="3" Click="btnClientLookup_Click" ToolTip="Client Lookup" />
+            <Button  x:Name="btnPhoneLookup" Content="Phone" HorizontalAlignment="Right" Margin="0,3,90,0" VerticalAlignment="Top" Width="76" Background="IndianRed" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="27" FontSize="16" Grid.Column="3" Click="btnPhoneLookup_Click" ToolTip="Phone Lookup" />
+
+            <ComboBox x:Name="cmbxLocation"  Grid.Column="0" Margin="13,91,22,0" Grid.Row="1" VerticalAlignment="Top" Height="30" ToolTip="Location" IsEnabled="False" />
+            <ComboBox x:Name="cmbxRequestType"  Grid.Column="0" Margin="13,126,22,0" Grid.Row="1" VerticalAlignment="Top" Height="30" IsEnabled="False" ToolTip="Request Type" />
+            <ComboBox x:Name="cmbxStatus"  Grid.Column="0" Margin="13,161,22,0" Grid.Row="1" VerticalAlignment="Top" Height="30" ToolTip="Status" IsEnabled="False" />
+            <ComboBox x:Name="cmbxAssTech"  Grid.Column="0" Margin="13,196,22,0" Grid.Row="1" VerticalAlignment="Top" Height="30" IsEnabled="False" ToolTip="Assigned Tech" />
+
+            <TextBox x:Name="txtBody" Height="198" Margin="13,273,22,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" SpellCheck.IsEnabled="True" BorderBrush="{x:Null}" ToolTip="Template Body" FontSize="16" AcceptsReturn="True" AcceptsTab="True" />
+
+            <TextBox x:Name="lblTktNo" Margin="89,4,0,0" VerticalAlignment="Top" Padding="0" FontSize="16" Foreground="White" FlowDirection="RightToLeft" ToolTip="Ticket Number" Grid.Column="1" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Left" Width="67" Height="23" Grid.Row="1" />
+
+            <Label x:Name="lblTempID" Content="" HorizontalAlignment="Left" Margin="-1,6,0,0" Grid.Row="2" VerticalAlignment="Top" Visibility="Hidden" Height="0" Width="10" />
+
+            <Image x:Name="imgNewTemplate" Source="New Note5.png" Margin="5,6,0,0" Grid.Row="1" Stretch="Fill" Width="33" Height="32" MouseLeftButtonDown="imgNewNote_MouseLeftButtonDown" Cursor="Hand" VerticalAlignment="Top" HorizontalAlignment="Left" ToolTip="New Template" MinWidth="22" MinHeight="21">
+                <Image.Effect>
+                    <DropShadowEffect BlurRadius="10" Opacity="0.2" />
+                </Image.Effect>
+            </Image>
+            <Image x:Name="imgEditTemplate" Source="Edit Note4.png" Margin="43,6,0,0" Grid.Row="1" Stretch="Fill" Height="32" Width="33" MouseLeftButtonDown="imgNewNote_Copy_MouseLeftButtonDown" Cursor="Hand" VerticalAlignment="Top" HorizontalAlignment="Left" ToolTip="Edit Current Template" MinWidth="25.1" MinHeight="21">
+                <Image.Effect>
+                    <DropShadowEffect BlurRadius="10" Opacity="0.2" />
+                </Image.Effect>
+            </Image>
+            <Image x:Name="imgCategorize" HorizontalAlignment="Left" Height="35" Margin="10,231,0,0" Grid.Row="1" VerticalAlignment="Top" Width="35" Cursor="Hand" Source="Categorize2.png" Stretch="Fill" MouseLeftButtonDown="imgCategorize_MouseLeftButtonDown" ToolTip="Categorize Ticket" />
+            <Image x:Name="imgInsert" HorizontalAlignment="Right" Height="35" Margin="0,231,22,0" Grid.Row="1" VerticalAlignment="Top" Width="35" Source="Insert2.png" Stretch="Fill" Cursor="Hand" MouseLeftButtonDown="imgInsert_MouseLeftButtonDown" ToolTip="Insert Template" RenderTransformOrigin="0.571,0.086" />
+            <Image x:Name="imgThemeCream" Grid.Row="0" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="13" Cursor="Hand" Margin="4,3,0,0" Stretch="Fill" Source="Theme Button.png" ToolTip="Change Theme" MouseLeftButtonDown="imgThemeCream_MouseLeftButtonDown" Grid.Column="4" />
+            <Image x:Name="imgHome" HorizontalAlignment="Left" Height="26" Margin="2,0,0,1" VerticalAlignment="Bottom" Width="25" RenderTransformOrigin="0.5,0.5" Source="Home Icon3.png" Cursor="Hand" ToolTip="Home" MouseLeftButtonDown="imgHome_MouseLeftButtonDown" Grid.Column="1">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform />
+                        <RotateTransform Angle="-0.349" />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Image x:Name="imgBack" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="33,0,0,4" VerticalAlignment="Bottom" Width="22" RenderTransformOrigin="0.5,0.5" Source="Back Icon.png" Cursor="Hand" ToolTip="Back" MouseLeftButtonDown="imgBack_MouseLeftButtonDown">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform />
+                        <RotateTransform Angle="-0.349" />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Image  x:Name="imgForward" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="61,0,0,4" VerticalAlignment="Bottom" Width="22" RenderTransformOrigin="0.5,0.5" Source="Forward Icon.png" Cursor="Hand" ToolTip="Forward" MouseLeftButtonDown="imgForward_MouseLeftButtonDown">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform />
+                        <RotateTransform Angle="-0.349" />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Image x:Name="imgLogout" Grid.Column="4" Grid.Row="0" HorizontalAlignment="Right" Height="28" Margin="0,2,2,0" VerticalAlignment="Top" Width="24" Source="Logout2.png" Stretch="Fill" Cursor="Hand" MouseLeftButtonDown="imgLogout_MouseLeftButtonDown" />
+
+            <VirtualizingStackPanel x:Name="stkBilling" Grid.Column="4" Height="0" Grid.Row="1" Margin="7,0,0,60" VerticalAlignment="Bottom">
+                <VirtualizingStackPanel.Resources>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Margin" Value="0,10,0,0" />
+                    </Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Margin" Value="0,10,0,0" />
+                    </Style>
+
+                    <Style TargetType="{x:Type ComboBox}">
+                        <Setter Property="Margin" Value="0,10,0,0" />
+                    </Style>
+                </VirtualizingStackPanel.Resources>
+
+                <Button  x:Name="btnCollapse" Content="Collapse" Margin="0" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FF757575" Click="btnCollapse_Click" HorizontalAlignment="Left" Width="66" FontSize="13" FontWeight="Bold" />
+
+                <TextBox x:Name="txtChartNumber" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" />
+
+                <DatePicker BorderThickness="1" x:Name="dtpBillingDate" VerticalAlignment="Top" Height="38" />
+
+                <ComboBox x:Name="cmbxOperator" VerticalAlignment="Top" Margin="4,10,4,0">
+                    <ListBoxItem Content="=" />
+                    <ListBoxItem Content="&gt;" />
+                    <ListBoxItem Content="&lt;" />
+                    <ListBoxItem Content="&gt;=" />
+                    <ListBoxItem Content="&lt;=" />
+                    <ListBoxItem Content="&gt;=" />
+                    <ListBoxItem Content="&lt;&gt;" />
+                </ComboBox>
+            </VirtualizingStackPanel>
+
+            <VirtualizingStackPanel x:Name="stkThemes" Grid.Column="4" HorizontalAlignment="Left" Height="23" Margin="22,4,0,0" VerticalAlignment="Top" Width="0" Orientation="Horizontal">
+
+                <Image x:Name="imgThemeLight" Grid.Row="0" Height="20" Width="20" Stretch="Fill" Source="WHDA Light Theme3.png" Margin="0,-24,0,-26" Cursor="Hand" HorizontalAlignment="Left" MouseLeftButtonDown="imgThemeLight_MouseLeftButtonDown" VerticalAlignment="Center" />
+                <Image x:Name="imgThemeDark" Grid.Row="0" Height="20" Width="20" Source="WHDA Dark Theme3.png" Stretch="Fill" Margin="0,-24,0,-26" OpacityMask="#FFD45151" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" MouseLeftButtonDown="imgThemeDark_MouseLeftButtonDown" />
+                <Image x:Name="imgThemeCustom" Grid.Row="0" Height="20" Width="19" Stretch="Fill" Source="CustomTheme3.png" Margin="0,-24,0,-26" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Center" MouseLeftButtonDown="imgThemeCustom_MouseLeftButtonDown" />
+            </VirtualizingStackPanel>
+            <StackPanel x:Name="stkpnlSignature" Height="0" Margin="5,501,10,0" Grid.Row="1" VerticalAlignment="Top">
+                <TextBox x:Name="txtSignature" ToolTip="Signature" Height="90" TextWrapping="Wrap" VerticalAlignment="Top" SpellCheck.IsEnabled="True" BorderBrush="{x:Null}" FontSize="16" AcceptsReturn="True" AcceptsTab="True" Margin="9,0,14,0" />
+                <CheckBox x:Name="chkbxIncludeSignature" Content="Include Signature" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Width="116" FontSize="12" Margin="9,0,0,0" />
+                <Button x:Name="btnSaveSig" Background="IndianRed" Content="Save Signature" HorizontalAlignment="Left" VerticalAlignment="Top" Width="106" Foreground="White" Height="26" Click="btnSaveSig_Click" BorderBrush="{x:Null}" Margin="9,0,0,0" />
+            </StackPanel>
+            <Button x:Name="btnOpen_CloseSigPanel" Content="Signature" HorizontalAlignment="Left" Margin="5,476,0,0" Grid.Row="1" VerticalAlignment="Top" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FFC4C4C6" Click="Button_Click_1" FontSize="12" Height="20" />
+            <Label x:Name="lblVersion" Content="Version " HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Bottom" Foreground="White" FontSize="10" Height="23" Width="77" Margin="-1,0,0,0" RenderTransformOrigin="0.5,0.5">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Button  x:Name="btnESearch" Content="Directory" HorizontalAlignment="Right" Margin="0,3,171,0" VerticalAlignment="Top" Width="85" Background="IndianRed" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="27" FontSize="16" Grid.Column="3" Click="btnESearch_Click" ToolTip="Phone Lookup" />
+            <Button  x:Name="btnStaffInfo" Content="Staff Search" HorizontalAlignment="Right" Margin="0,3,261,0" VerticalAlignment="Top" Width="106" Background="IndianRed" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="27" FontSize="16" Grid.Column="3" ToolTip="Phone Lookup" Click="btnStaffInfo_Click" />
+            <Expander x:Name="expStatTracker" Grid.Column="4" Header="Stat Tracker" Height="228" Margin="25,0,2,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White" IsExpanded="False" Grid.Row="1">
+                <StackPanel Height="200" Background="#FF777777">
+                    <Label x:Name="lblCategorized" Foreground="White" FontSize="12" Height="49">
+                        <Label Content="" Foreground="White" />
+                    </Label>
+                    <Label x:Name="lblTemplateInserts" FontSize="12" Height="49" Foreground="White" Visibility="Collapsed">
+                        <Label Content="" Foreground="White" />
+                    </Label>
+                    <Label x:Name="lblTemplatesAdded" FontSize="12" Height="49" Foreground="White">
+                        <Label Content="" Foreground="White" />
+                    </Label>
+                    <Label x:Name="lblTemplatesAdded1" Height="49" FontSize="12" Foreground="White">
+                        <Label Content="" Foreground="White" />
+                    </Label>
+                    <Label x:Name="lblBillings" Height="49" FontSize="12" Foreground="White">
+                        <Label Content="" Foreground="White" />
+                    </Label>
+                </StackPanel>
+            </Expander>
+            <Button  x:Name="btnLive" Content="MyAvatar" HorizontalAlignment="Right" Margin="0,3,372,0" VerticalAlignment="Top" Width="106" Background="IndianRed" Foreground="#FFFFFEFE" BorderBrush="{x:Null}" Height="27" FontSize="16" Grid.Column="3" ToolTip="Phone Lookup" Click="btnLive_Click" />
+        </Grid>
+    </Border>
+</Window>
