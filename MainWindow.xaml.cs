@@ -1404,7 +1404,7 @@ namespace WHD_Assistant_WPF
 
         private void btnLive_Click(object sender, RoutedEventArgs e)
         {
-            BlankWindow BW = new BlankWindow("");
+            BlankWindow BW = new BlankWindow("2");
             BW.Show();
         }
 
